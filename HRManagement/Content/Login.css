@@ -1,0 +1,10 @@
+﻿
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border-color: red;
+}
+
+

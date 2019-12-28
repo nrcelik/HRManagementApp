@@ -1,0 +1,66 @@
+﻿@model List<HRManagement.Models.Employees>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (@Html.BeginForm("Index", "Person", FormMethod.Post))
+{
+    <div class="row">
+        @Html.ActionLink("New Employee", "New", null, new { @class = "btn btn-success" })
+    </div>
+    <br />
+    <div class="row">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">
+                        Name
+                    </th>
+                    <th scope="col">
+                        Surname
+                    </th>
+                    <th scope="col">
+                        Department
+                    </th>
+                    <th scope="col">
+
+                    </th>
+                    <th scope="col">
+
+                    </th>
+                    <th scope="col">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Surname
+                        </td>
+                        <td>
+                            @item.Department.Name
+                        </td>
+                        <td>
+
+                            @Html.ActionLink("Detail", "Index", "EmployeeDetails", new { item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Update", "Update", new { item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { item.Id }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}

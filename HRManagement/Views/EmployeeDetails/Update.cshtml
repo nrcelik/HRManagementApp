@@ -1,0 +1,101 @@
+﻿@model HRManagement.ViewModels.EmployeeDetailsViewModel
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Save", "EmployeeDetails", FormMethod.Post))
+{
+  @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <b>@ViewBag.Title</b>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Employee Name : </b> @Model.Employee.Name
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Employee Surname : </b>@Model.Employee.Surname
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b> Department : </b>@Model.Employee.Department.Name
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.BirthDate)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(e => e.EmployeeDetail.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.MartialStatus)
+            </div>
+            <div class="col-md-9">
+                @Html.RadioButtonFor(e => e.EmployeeDetail.MartialStatus, "true") Married
+                @Html.RadioButtonFor(e => e.EmployeeDetail.MartialStatus, "false") Single
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.Email)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(e => e.EmployeeDetail.Email)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.Address)
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(e => e.EmployeeDetail.Address)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.Country)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(e => e.EmployeeDetail.CountryId, Model.Countries)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.City, Model.Cities)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(e => e.EmployeeDetail.CityId, Model.Cities)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.PostCode)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(e => e.EmployeeDetail.PostCode)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.PhoneNumber)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(e => e.EmployeeDetail.PhoneNumber)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(e => e.EmployeeDetail.Salary)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(e => e.EmployeeDetail.Salary)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                 @Html.HiddenFor(x => x.EmployeeDetail.Id)
+                <button name="Save" type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+}

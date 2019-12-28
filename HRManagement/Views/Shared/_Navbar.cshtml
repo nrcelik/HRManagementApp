@@ -1,0 +1,48 @@
+﻿<!-- Navigation -->
+<div class="row">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">HR MANAGEMENT</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Home/Index">
+                            Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Employees/Index">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Department/Index">Departments</a>
+                    </li>
+                    @if (User.IsInRole("A"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Users/Index">Users</a>
+                        </li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Security/Login">Log Out</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Security/Login">Log in</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<br />
+<br />

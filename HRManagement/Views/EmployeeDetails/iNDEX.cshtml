@@ -1,0 +1,133 @@
+﻿@model HRManagement.Models.EmployeeDetails
+@{
+    ViewBag.Title = "EmployeeDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int employeeId = Convert.ToInt32(Session["EmployeeId"]);
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Id == 0)
+            {
+                @Html.ActionLink("New Detail", "New", new { employeeId }, new { @class = "btn btn-success" })
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <b>Employee Name : </b> @ViewBag.Name
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <b>Employee Surname : </b>@ViewBag.Surname
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <b> Department : </b>@ViewBag.DepartmentName
+        </div>
+    </div>
+    <hr />
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Id > 0)
+        {
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.BirthDate)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.MartialStatus)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.Email)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.Address)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.Country)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.City)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.PostCode)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.PhoneNumber)
+                        </th>
+                        <th scope="col">
+                            @Html.LabelFor(e => e.Salary)
+                        </th>
+                        <th scope="col">
+
+                        </th>
+                        <th scope="col">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @String.Format("{0:dd/MM/yyyy}", @Model.BirthDate)
+
+                        </td>
+                        <td>
+                            @if (Model.MartialStatus is true)
+                            {
+                                <label>Married</label>}
+                            else
+                            {
+                                <label>Single</label>
+                            }
+                        </td>
+                        <td>
+                            @Model.Email
+                        </td>
+                        <td>
+                            @Model.Address
+                        </td>
+                        <td>
+
+                            @if (Model.CountryId > 0)
+                            {
+                                @Model.Country.Name
+                            }
+                        </td>
+                        <td>
+                            @if (Model.CityId > 0)
+                            {
+                                @Model.City.Name
+                            }
+                        </td>
+                        <td>
+                            @Model.PostCode
+                        </td>
+                        <td>
+                            @Model.PhoneNumber
+                        </td>
+                        <td>
+                            @Model.Salary
+                        </td>
+                        <td>@Html.ActionLink("Update", "Update", "EmployeeDetails", new { Model.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                        <td>@Html.ActionLink("Delete", "Delete", new { Model.Id }, new { @class = "btn btn-danger btn-sm" })</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        else
+        { 
+            <div class="alert alert-warning">
+                <strong> Warning! </strong> There is no any detail data of this employee.
+            </div>
+        }
+    </div>
+</div>
+

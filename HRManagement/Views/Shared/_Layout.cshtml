@@ -1,0 +1,19 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - HR Management Application</title>
+
+    @Styles.Render("~/css/all")
+    @Scripts.Render("~/js/all")
+</head>
+<body>
+    @Html.Partial("_Navbar")
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+@Html.Partial("_Footer")
+</html>

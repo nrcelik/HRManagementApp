@@ -1,0 +1,58 @@
+﻿@model HRManagement.Models.Users
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+@using (Html.BeginForm("Login", "Security", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <hr />
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Sign In</h5>
+
+                        @using (Html.BeginForm("GetLogin", "Security", FormMethod.Post))
+                        {
+                            @ViewBag.Message
+                            <div class="form-label-group">
+                                @Html.LabelFor(m => m.UserName)
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+
+                            </div>
+                            <div class="form-label-group">
+                                @Html.LabelFor(m => m.Password)
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+
+                            </div>
+                            <div class="form-label-group">
+                                @*@Html.CheckBoxFor(m => m.RememberMe, false)
+                                @Html.LabelFor(m => m.RememberMe)*@
+                            </div>
+                            <button class=" btn btn-success btn-block text-uppercase" type="submit">Sign in</button>
+                            <button class=" btn btn-danger btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+                            <button class=" btn btn-primary btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

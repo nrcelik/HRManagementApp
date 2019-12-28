@@ -1,0 +1,49 @@
+﻿@model HRManagement.ViewModels.NewEmployeeViewModel
+@{
+       ViewBag.Title = "New Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h6>@ViewBag.Title</h6>
+    <hr />
+</div>
+@using (Html.BeginForm("Save", "Employees", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.Employee.Name, new { @class="h6"})
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Employee.Name)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.Employee.Surname, new { @class="h6"})
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Employee.Surname)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.Employee.Department.Name, new { @class="h6"})
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(x => x.Employee.DepartmentId, Model.Departments,"Choose a Department")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+               <button name="Save" type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+}
