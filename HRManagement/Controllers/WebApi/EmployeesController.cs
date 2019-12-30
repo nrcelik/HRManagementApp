@@ -12,7 +12,7 @@ namespace HRManagement.Controllers.WebApi
     {
         HrManagementContext db = new HrManagementContext();
 
-        public IEnumerable<Employees> Get()
+        public IEnumerable<Employees> Get() 
         {
             return db.Employees.Include("Department").ToList();
 
