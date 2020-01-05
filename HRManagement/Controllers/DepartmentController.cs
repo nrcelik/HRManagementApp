@@ -1,5 +1,7 @@
-﻿using HRManagement.Filters;
-using HRManagement.Models;
+﻿using BusinessLayer;
+using HRManagement.Filters;
+using HRManagementEntities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -8,21 +10,10 @@ namespace HRManagement.Controllers
 {
     public class DepartmentController : Controller
     {
-        private HrManagementContext db;
-
-        public DepartmentController()
-        {
-            db = new HrManagementContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-        }
-
+        DepartmentManager departmentManager = new DepartmentManager();
         public ActionResult Index()
         {
-            var model = db.Departments.ToList();
+            List<Departments> model = departmentManager.Get();
 
             if (model != null)
             {
@@ -64,6 +55,7 @@ namespace HRManagement.Controllers
         [Authorize(Roles = "A,T")]
         public ActionResult Update(int id)
         {
+
             var data = db.Departments.First(x => x.Id == id);
             return View(data);
         }
