@@ -1,4 +1,4 @@
-﻿using HRManagement.Models;
+﻿using HRManagementEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

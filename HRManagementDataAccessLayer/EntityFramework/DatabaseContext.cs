@@ -14,7 +14,7 @@ namespace HRManagementDataAccessLayer
 
         public DatabaseContext() : base("HrManagementConStr")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, HRManagement.Migrations.Configuration>());
+           // Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, HRManagement.Migrations.Configuration>());
 
             this.Configuration.LazyLoadingEnabled = false;
         }

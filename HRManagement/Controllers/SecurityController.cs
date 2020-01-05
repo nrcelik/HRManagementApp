@@ -1,5 +1,4 @@
-﻿using HRManagement.Models;
-using System;
+﻿using HRManagementEntities;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;

@@ -1,6 +1,5 @@
-﻿using HRManagement.Models;
-using HRManagement.ViewModels;
-using System.Collections.Generic;
+﻿using HRManagement.ViewModels;
+using HRManagementEntities;
 using System.Linq;
 using System.Web.Mvc;
 

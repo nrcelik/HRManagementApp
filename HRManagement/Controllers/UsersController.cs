@@ -1,5 +1,5 @@
-﻿using HRManagement.Models;
-using System.Linq;
+﻿using BusinessLayer;
+using HRManagementEntities;
 using System.Web.Mvc;
 
 namespace HRManagement.Controllers
@@ -7,20 +7,11 @@ namespace HRManagement.Controllers
     [Authorize(Roles = "A")]
     public class UsersController : Controller
     {
-        private HrManagementContext db;
+        UserManager userManager = new UserManager();
 
-        public UsersController()
-        {
-            db = new HrManagementContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-        }
         public ActionResult Index()
         {
-            var model = db.Users.ToList();
-
+            var model = userManager.GetUsers();
             return View(model);
         }
 
@@ -37,8 +28,7 @@ namespace HRManagement.Controllers
         }
         public ActionResult Update(int id)
         {
-            Users user = db.Users.Find(id);
-
+            Users user = userManager.GetUserById(id);
             return View("Update", user);
         }
         public ActionResult Save(Users user)
@@ -49,21 +39,20 @@ namespace HRManagement.Controllers
                 {
                     if (user.Id > 0)
                     {
-                        Users data = db.Users.Find(user.Id);
+                        Users data = userManager.GetUserById(user.Id);
                         data.UserName = user.UserName;
                         data.Password = user.Password;
                         data.Role = user.Role.ToUpper();
+                        userManager.Update(data);
                     }
                     else
-                        db.Users.Add(user);
-                    db.SaveChanges();
+                        userManager.Save();
                 }
                 else
                 {
                     ModelState.AddModelError("Invalid", "");
                     return View("New", user);
                 }
-
             }
 
             return RedirectToAction("Index");
@@ -72,13 +61,10 @@ namespace HRManagement.Controllers
         {
             if (id > 0)
             {
-                Users user = db.Users.Find(id);
-                db.Users.Remove(user);
-                db.SaveChanges();
+                userManager.Delete(id);
                 return RedirectToAction("Index");
             }
             return HttpNotFound();
-
         }
     }
 }

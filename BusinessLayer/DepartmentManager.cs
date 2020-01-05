@@ -12,5 +12,11 @@ namespace BusinessLayer
         {
             return repoDepartment.List();
         }
+
+        //public int Update()
+        //{
+        //    repoDepartment.Update(Departments department);
+        //}
+
     }
 }

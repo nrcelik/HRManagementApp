@@ -1,9 +1,10 @@
-﻿using HRManagement.Models;
+﻿using HRManagementDataAccessLayer;
+using HRManagementEntities;
 using System;
 using System.Linq;
 using System.Web.Security;
 
-namespace HRManagement.Security
+namespace HRManagementBusiness.Security
 {
     public class UserRoleProvider : RoleProvider
     {
@@ -36,8 +37,8 @@ namespace HRManagement.Security
 
         public override string[] GetRolesForUser(string username)
         {
-            HrManagementContext db = new HrManagementContext();
-            var user = db.Users.FirstOrDefault(x => x.UserName == username);
+            Repository<Users> repo = new Repository<Users>();
+            var user = repo.Find(x => x.UserName == username);    
             return new string[] { user.Role };
 
         }
