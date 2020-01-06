@@ -28,6 +28,6 @@ namespace BusinessLayer
         {
             Users user = repo.Find(x => x.Id == id);
             repo.Delete(user);
-        }
+        }     
     }
 }

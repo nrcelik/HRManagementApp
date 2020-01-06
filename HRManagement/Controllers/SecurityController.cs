@@ -1,4 +1,5 @@
-﻿using HRManagementEntities;
+﻿using BusinessLayer;
+using HRManagementEntities;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -8,16 +9,7 @@ namespace HRManagement.Controllers
     [AllowAnonymous]
     public class SecurityController : Controller
     {
-        private HrManagementContext db;
-
-        public SecurityController()
-        {
-            db = new HrManagementContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-        }
+        UserManager userManager = new UserManager();
         public ActionResult Login()
         {
             Users user = new Users();
@@ -37,37 +29,44 @@ namespace HRManagement.Controllers
         {
             //user.Id = 1;
 
-            Users userInfo = db.Users.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
-            if (userInfo==null)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Invalid Username and Password");
-                return View(user);
+                Users userInfo = userManager.GetUserById(user.Id);
+
+                if (userInfo == null)
+                {
+                    ModelState.AddModelError("", "Invalid Username and Password");
+                    return View(user);
+                }
+                else
+                {
+                    Session["User"] = userInfo;
+                    FormsAuthentication.SetAuthCookie(userInfo.UserName, false);
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
-            {
-               
-                 Session["User"] = userInfo;
-                FormsAuthentication.SetAuthCookie(userInfo.UserName, false);
-                return RedirectToAction("Index", "Home");
-            }
+                ModelState.AddModelError("Invalid", "");
+                return View(user);
+
 
             //if (ModelState.IsValid)
             //{
-                //if (user.RememberMe)
-                //{
-                //    Session["UserName"] = user.UserName;
-                //    Session["Password"] = user.Password;
-                //Session["Role"] = user.Role;
-                //}         
+            //if (user.RememberMe)
+            //{
+            //    Session["UserName"] = user.UserName;
+            //    Session["Password"] = user.Password;
+            //Session["Role"] = user.Role;
+            //}         
 
-                //if (userInfo.Id > 0)
-                //{
-                //    Session["UserId"] = Guid.NewGuid();
+            //if (userInfo.Id > 0)
+            //{
+            //    Session["UserId"] = Guid.NewGuid();
 
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //else
-                //    return View(user);
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //    return View(user);
 
             //}
             //else
@@ -77,6 +76,7 @@ namespace HRManagement.Controllers
 
         public ActionResult Logout()
         {
+            Session.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }

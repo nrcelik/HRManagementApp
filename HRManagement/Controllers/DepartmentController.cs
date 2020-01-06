@@ -46,17 +46,18 @@ namespace HRManagement.Controllers
 
         [Authorize(Roles = "A,T")]
         [HttpPost]
-        
+
         public ActionResult New(Departments department)
         {
             ViewBag.Message = "Update Department";
             return View(department);
         }
+
+        //gets the data to be updated
         [Authorize(Roles = "A,T")]
         public ActionResult Update(int id)
         {
-
-            var data = db.Departments.First(x => x.Id == id);
+            var data = departmentManager.GetUserById(id);
             return View(data);
         }
 
@@ -69,15 +70,15 @@ namespace HRManagement.Controllers
             {
                 if (department.Id > 0)
                 {
-                    var data = db.Departments.SingleOrDefault(x => x.Id == department.Id);
+                    var data = departmentManager.GetUserById(department.Id);
                     data.Name = department.Name;
-                    db.SaveChanges();
+                    departmentManager.Update(data);
                 }
                 else
-                    db.Departments.Add(department);
-                db.SaveChanges();
+                    //db.Departments.Add(department);
+                    departmentManager.Save(department);
 
-                var model = db.Departments.ToList();
+                var model = departmentManager.Get();
 
                 return View("Index", model);
             }
@@ -88,22 +89,21 @@ namespace HRManagement.Controllers
             }
 
         }
+
         [Authorize(Roles = "A,T")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var data = db.Departments.SingleOrDefault(x => x.Id == id);
-            if (data != null)
+            if (id > 0)
             {
-                db.Departments.Remove(data);
-                db.SaveChanges();
+                departmentManager.Delete(id);
+                return RedirectToAction("Index");
             }
             else
                 return HttpNotFound();
-            var model = db.Departments.ToList();
 
-            return View("Index", model);
-
+            //var model = db.Departments.ToList();
+            //return View("Index", model);
         }
     }
 

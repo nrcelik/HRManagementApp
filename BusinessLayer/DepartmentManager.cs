@@ -12,11 +12,22 @@ namespace BusinessLayer
         {
             return repoDepartment.List();
         }
-
-        //public int Update()
-        //{
-        //    repoDepartment.Update(Departments department);
-        //}
-
+        public Departments GetUserById(int id)
+        {
+            return repoDepartment.Find(x => x.Id == id);
+        }
+        public void Update(Departments department)
+        {
+            repoDepartment.Update(department);
+        }     
+        public void Save(Departments department)
+        {
+            repoDepartment.Save();
+        }
+        public void Delete(int id)
+        {
+            Departments department = repoDepartment.Find(x => x.Id == id);
+            repoDepartment.Delete(department);
+        }
     }
 }

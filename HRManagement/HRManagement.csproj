@@ -273,10 +273,6 @@
       <Project>{ca4957f4-5010-4e05-9453-811966253203}</Project>
       <Name>HRManagementBusinessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HRManagementDataAccessLayer\HRManagementDataAccessLayer.csproj">
-      <Project>{b88811a7-441b-40d1-8018-3fcdd30493c3}</Project>
-      <Name>HRManagementDataAccessLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HRManagementEntities\HRManagementEntities.csproj">
       <Project>{6e024349-024f-4a4b-8a0f-1a10767525fd}</Project>
       <Name>HRManagementEntities</Name>

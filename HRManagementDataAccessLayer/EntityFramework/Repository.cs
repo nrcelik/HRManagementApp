@@ -46,7 +46,6 @@ namespace HRManagementDataAccessLayer
         {
             _objectSet.Remove(obj);
             return Save();
-        }
-
+        }   
     }
 }

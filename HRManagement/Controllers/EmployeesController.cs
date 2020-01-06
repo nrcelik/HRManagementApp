@@ -1,5 +1,5 @@
-﻿using HRManagement.ViewModels;
-using HRManagementEntities;
+﻿using HRManagementEntities;
+using HRManagementEntities.ValueObjects;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -7,18 +7,7 @@ namespace HRManagement.Controllers
 {
     public class EmployeesController : Controller
     {
-        private HrManagementContext db;
-
-        public EmployeesController()
-        {
-            db = new HrManagementContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-        }
-
+        
         public ActionResult Index()
         {
             var model = db.Employees.Include("Department").ToList();
