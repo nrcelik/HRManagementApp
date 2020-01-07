@@ -10,12 +10,9 @@ namespace HRManagement.Controllers.WebApi
 {
     public class EmployeesController : ApiController
     {
-        HrManagementContext db = new HrManagementContext();
-
         public IEnumerable<Employees> Get() 
         {
             return db.Employees.Include("Department").ToList();
-
         }
         public HttpResponseMessage Get(int id)
         {

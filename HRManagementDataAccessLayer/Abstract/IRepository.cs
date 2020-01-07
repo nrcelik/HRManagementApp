@@ -11,7 +11,9 @@ namespace HRManagementDataAccessLayer.Abstract
     {
         List<T> List();
         List<T> List(Expression<Func<T, bool>> where);
+        List<T> Include(string path);
         T Find(Expression<Func<T, bool>> where);
+        T Find(int id);
         int Save();
         int Insert(T obj);
         int Update(T obj);

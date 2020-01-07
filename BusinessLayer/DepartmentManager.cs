@@ -12,7 +12,7 @@ namespace BusinessLayer
         {
             return repoDepartment.List();
         }
-        public Departments GetUserById(int id)
+        public Departments GetDepartmentById(int id)
         {
             return repoDepartment.Find(x => x.Id == id);
         }
@@ -20,7 +20,7 @@ namespace BusinessLayer
         {
             repoDepartment.Update(department);
         }     
-        public void Save(Departments department)
+        public void Save()
         {
             repoDepartment.Save();
         }

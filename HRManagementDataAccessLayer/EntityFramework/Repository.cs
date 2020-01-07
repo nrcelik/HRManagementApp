@@ -3,6 +3,7 @@ using HRManagementDataAccessLayer.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -25,9 +26,17 @@ namespace HRManagementDataAccessLayer
         {
             return _objectSet.Where(where).ToList();
         }
+        public List<T> Include(string path)
+        {
+            return _objectSet.Include("path").ToList();
+        }
         public T Find(Expression<Func<T, bool>> where)
         {
             return _objectSet.FirstOrDefault(where);
+        }
+        public T Find(int id)
+        {
+            return _objectSet.Find(id);
         }
         public int Save()
         {

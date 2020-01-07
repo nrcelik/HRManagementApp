@@ -1,4 +1,5 @@
-﻿using HRManagementEntities;
+﻿using BusinessLayer;
+using HRManagementEntities;
 using HRManagementEntities.ValueObjects;
 using System.Linq;
 using System.Web.Mvc;
@@ -7,10 +8,11 @@ namespace HRManagement.Controllers
 {
     public class EmployeesController : Controller
     {
-        
+        EmployeeManager employeeManager = new EmployeeManager();
+        DepartmentManager departmentManager = new DepartmentManager();
         public ActionResult Index()
         {
-            var model = db.Employees.Include("Department").ToList();
+            var model = employeeManager.Include("Departments");
             return View(model);
         }
 
@@ -26,7 +28,7 @@ namespace HRManagement.Controllers
             var viewModel = new NewEmployeeViewModel
             {
                 Employee = new Employees(),
-                Departments = new SelectList(db.Departments.ToList(), "Id", "Name"),
+                Departments = new SelectList(employeeManager.Get(), "Id", "Name"),
                 DepartmentId = -1
             };
 
@@ -38,7 +40,7 @@ namespace HRManagement.Controllers
         //If there is a problem on new data
         public ActionResult New(NewEmployeeViewModel model)
         {
-            model.Departments = new SelectList(db.Departments.ToList(), "Id", "Name");
+            model.Departments = new SelectList(departmentManager.Get(), "Id", "Name");
             return View(model);
         }
 
@@ -46,15 +48,16 @@ namespace HRManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(int id)
         {
-            var data = db.Employees.FirstOrDefault(x => x.Id == id);
+            var data = employeeManager.GetById(id);
 
             var model = new NewEmployeeViewModel()
             {
                 Employee = data,
                 DepartmentId = data.DepartmentId,
-                Departments = new SelectList(db.Departments, "Id", "Name", data.DepartmentId)
+                Departments = new SelectList(departmentManager.Get()/*db.Departments*/, "Id", "Name", data.DepartmentId)
 
             };
+
             return View(model);
         }
 
@@ -63,14 +66,14 @@ namespace HRManagement.Controllers
         public ActionResult Save(Employees employee)
         {
 
-            var department = db.Departments.Single(x => x.Id == employee.DepartmentId);
-
+            var department = departmentManager.GetDepartmentById(employee.Id);
+              
             if (ModelState.IsValid)
             {
                 //Update
                 if (employee.Id > 0)
                 {
-                    var data = db.Employees.Single(x => x.Id == employee.Id);
+                    var data = employeeManager.GetById(employee.Id); //db.Employees.Single(x => x.Id == employee.Id);
                     data.Name = employee.Name;
                     data.Surname = employee.Name;
                     data.DepartmentId = employee.DepartmentId;
@@ -78,11 +81,11 @@ namespace HRManagement.Controllers
                 }
                 //New Employee
                 else
-                    db.Employees.Add(employee);
-                db.SaveChanges();
+                    employeeManager.Update(employee);
+                employeeManager.Save();
 
                 //If i do not convert to list it throws an exception.
-                var model = db.Employees.Include("Department").ToList();
+                var model = employeeManager.Include("Department");  //db.Employees.Include("Department").ToList();
                 return View("Index", model);
             }
             else
@@ -91,7 +94,7 @@ namespace HRManagement.Controllers
             var newEmployee = new NewEmployeeViewModel()
             {
                 Employee = employee,
-                Departments = new SelectList(db.Departments.ToList(), "Id", "Name"),
+                Departments = new SelectList(departmentManager.Get(), "Id", "Name"),
                 DepartmentId =employee.DepartmentId
             };
 
@@ -102,18 +105,29 @@ namespace HRManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
+
             if (id > 0)
             {
-                var data = db.Employees.Single(x => x.Id == id);
-
-                if (data != null)
-                {
-                    db.Employees.Remove(data);
-                    db.SaveChanges();
-                }
-                else
-                    return HttpNotFound();
+                employeeManager.Delete(id);
             }
+            else
+                return HttpNotFound();
+
+            var model = employeeManager.Include("Department");
+            return View("Index", model);
+
+            //if (id > 0)
+            //{
+            //    var data = db.Employees.Single(x => x.Id == id);
+
+            //    if (data != null)
+            //    {
+            //        db.Employees.Remove(data);
+            //        db.SaveChanges();
+            //    }
+            //    else
+            //        return HttpNotFound();
+            //}
 
             var model = db.Employees.Include("Department").ToList();
             return View("Index", model);

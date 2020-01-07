@@ -57,7 +57,7 @@ namespace HRManagement.Controllers
         [Authorize(Roles = "A,T")]
         public ActionResult Update(int id)
         {
-            var data = departmentManager.GetUserById(id);
+            var data = departmentManager.GetDepartmentById(id);
             return View(data);
         }
 
@@ -70,7 +70,7 @@ namespace HRManagement.Controllers
             {
                 if (department.Id > 0)
                 {
-                    var data = departmentManager.GetUserById(department.Id);
+                    var data = departmentManager.GetDepartmentById(department.Id);
                     data.Name = department.Name;
                     departmentManager.Update(data);
                 }

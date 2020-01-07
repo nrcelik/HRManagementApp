@@ -1,6 +1,5 @@
-﻿namespace HRManagement.Migrations
+﻿namespace HRManagementDataAccessLayer
 {
-    using HRManagementDataAccessLayer;
     using System.Data.Entity.Migrations;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DatabaseContext>   //HRManagement.Models.HrManagementContext>
