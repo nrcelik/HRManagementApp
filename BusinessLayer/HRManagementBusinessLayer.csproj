@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CitiesManager.cs" />
+    <Compile Include="CountriesManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="EmployeeDetailsManager.cs" />
     <Compile Include="EmployeeManager.cs" />

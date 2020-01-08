@@ -129,8 +129,8 @@ namespace HRManagement.Controllers
             //        return HttpNotFound();
             //}
 
-            var model = db.Employees.Include("Department").ToList();
-            return View("Index", model);
+            //var model = db.Employees.Include("Department").ToList();
+            //return View("Index", model);
         }
     }
 }

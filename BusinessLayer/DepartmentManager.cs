@@ -24,6 +24,10 @@ namespace BusinessLayer
         {
             repoDepartment.Save();
         }
+        public int Save(Departments department)
+        {
+            return repoDepartment.Save(department);
+        }
         public void Delete(int id)
         {
             Departments department = repoDepartment.Find(x => x.Id == id);

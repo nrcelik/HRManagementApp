@@ -19,6 +19,14 @@ namespace BusinessLayer
         {
             return repo.Find(id);
         }
+        public Employees Find(int id)
+        {
+            return repo.Find(x => x.Id == id);
+        }
+        public Employees FindAndInclude(int id, string path)
+        {
+            return repo.Find(path, x => x.Id == id);
+        }
         public List<Employees> Include(string path)
         {
             return repo.Include(path);
@@ -27,9 +35,13 @@ namespace BusinessLayer
         {
             return repo.Update(employee);
         }
-        public void Save()
+        public int Save()
         {
-            repo.Save();
+            return repo.Save();
+        }
+        public int Save(Employees employee)
+        {
+           return repo.Save(employee);
         }
         public void Delete(int id)
         {

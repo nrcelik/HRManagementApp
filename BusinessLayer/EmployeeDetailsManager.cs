@@ -23,6 +23,18 @@ namespace BusinessLayer
         {
             return repo.Include(path);
         }
+        public EmployeeDetails Find(int id)
+        {
+            return repo.Find(x => x.Id == id);
+        }
+        public EmployeeDetails FindAndInclude(int id, string path)
+        {
+            return repo.Find(path, x => x.Id == id);
+        }
+        public EmployeeDetails FindAndInclude(int id,  params string[] tableNames)
+        {
+            return repo.Find(x => x.Id == id, tableNames);
+        }
         public int Update(EmployeeDetails employeeDetails)
         {
             return repo.Update(employeeDetails);

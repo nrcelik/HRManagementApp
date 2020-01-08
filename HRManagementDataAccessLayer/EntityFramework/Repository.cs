@@ -34,6 +34,18 @@ namespace HRManagementDataAccessLayer
         {
             return _objectSet.FirstOrDefault(where);
         }
+        public T Find(string path, Expression<Func<T, bool>> where)
+        {
+            return _objectSet.Include("path").FirstOrDefault(where);
+        }
+        public T Find( Expression<Func<T, bool>> where, params string[] tableNames)
+        {
+            foreach (var table in tableNames)
+            {
+                _objectSet.Include(table);
+            }
+            return _objectSet.FirstOrDefault(where);
+        }
         public T Find(int id)
         {
             return _objectSet.Find(id);
@@ -41,6 +53,11 @@ namespace HRManagementDataAccessLayer
         public int Save()
         {
             return db.SaveChanges();
+        }
+        public int Save(T obj)
+        {
+            _objectSet.Add(obj);
+            return Save();
         }
         public int Insert(T obj)
         {

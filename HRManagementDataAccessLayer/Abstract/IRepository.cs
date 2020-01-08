@@ -12,7 +12,9 @@ namespace HRManagementDataAccessLayer.Abstract
         List<T> List();
         List<T> List(Expression<Func<T, bool>> where);
         List<T> Include(string path);
+        T Find(Expression<Func<T, bool>> where, params string[] tableNames);
         T Find(Expression<Func<T, bool>> where);
+        T Find(string path, Expression<Func<T, bool>> where);
         T Find(int id);
         int Save();
         int Insert(T obj);
