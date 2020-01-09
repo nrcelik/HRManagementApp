@@ -12,6 +12,10 @@ namespace BusinessLayer
         {
             return repo.List();
         }
+        public Users GetUser(string userName)
+        {
+            return repo.Find(x => x.UserName == userName);
+        }
         public Users GetUserById(int id)
         {
             return repo.Find(x => x.Id == id);

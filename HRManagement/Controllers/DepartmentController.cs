@@ -79,8 +79,7 @@ namespace HRManagement.Controllers
                     departmentManager.Save(department);
 
                 var model = departmentManager.Get();
-
-                return View("Index", model);
+                return View("Index", model);           
             }
             else
             {

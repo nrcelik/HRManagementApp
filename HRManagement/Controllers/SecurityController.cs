@@ -12,26 +12,31 @@ namespace HRManagement.Controllers
         UserManager userManager = new UserManager();
         public ActionResult Login()
         {
-            Users user = new Users();
-            //if (Session["UserId"] != null)
-            //{
-            //    Users user = new Users();
-            //    user.UserName = Session["UserName"].ToString();
-            //    user.Password = Session["Password"].ToString();
-            //    return View();
-            //}
-            return View(user);
 
+           
+            if (Session["User"] != null)
+            {
+                Users user = new Users();
+                user.UserName = Session["UserName"].ToString();
+                user.Password = Session["Password"].ToString();
+                return View();
+            }
+            else { 
+                Users user = new Users();
+                return View(user);
+            }
+ 
         }
 
         [HttpPost]
         public ActionResult Login(Users user)
         {
             //user.Id = 1;
+            // user.Role = "U";
 
             if (ModelState.IsValid)
             {
-                Users userInfo = userManager.GetUserById(user.Id);
+                Users userInfo = userManager.GetUser(user.UserName);
 
                 if (userInfo == null)
                 {

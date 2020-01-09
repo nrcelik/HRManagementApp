@@ -12,7 +12,6 @@ namespace HRManagementEntities
         [Required]
         public string Password { get; set; }
 
-        [Required]
         public string Role { get; set; }
 
         public bool RememberMe { get; set; }

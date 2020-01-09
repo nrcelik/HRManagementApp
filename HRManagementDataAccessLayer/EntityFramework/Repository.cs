@@ -28,7 +28,7 @@ namespace HRManagementDataAccessLayer
         }
         public List<T> Include(string path)
         {
-            return _objectSet.Include("path").ToList();
+            return _objectSet.Include(path).ToList();
         }
         public T Find(Expression<Func<T, bool>> where)
         {
@@ -36,7 +36,7 @@ namespace HRManagementDataAccessLayer
         }
         public T Find(string path, Expression<Func<T, bool>> where)
         {
-            return _objectSet.Include("path").FirstOrDefault(where);
+            return _objectSet.Include(path).FirstOrDefault(where);
         }
         public T Find( Expression<Func<T, bool>> where, params string[] tableNames)
         {

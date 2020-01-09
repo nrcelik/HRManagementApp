@@ -12,7 +12,7 @@ namespace HRManagement.Controllers
         DepartmentManager departmentManager = new DepartmentManager();
         public ActionResult Index()
         {
-            var model = employeeManager.Include("Departments");
+            var model = employeeManager.Include("Department");
             return View(model);
         }
 
@@ -28,7 +28,7 @@ namespace HRManagement.Controllers
             var viewModel = new NewEmployeeViewModel
             {
                 Employee = new Employees(),
-                Departments = new SelectList(employeeManager.Get(), "Id", "Name"),
+                Departments = new SelectList(departmentManager.Get(), "Id", "Name"),
                 DepartmentId = -1
             };
 
