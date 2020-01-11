@@ -203,6 +203,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WebApi\EmployeesController.cs" />
     <Compile Include="Filters\AuthFilter.cs" />
+    <Compile Include="Filters\TokenFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

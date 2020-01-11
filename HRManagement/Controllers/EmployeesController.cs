@@ -45,7 +45,7 @@ namespace HRManagement.Controllers
         }
 
         [Authorize(Roles = "A,T")]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Update(int id)
         {
             var data = employeeManager.GetById(id);
@@ -66,7 +66,7 @@ namespace HRManagement.Controllers
         public ActionResult Save(Employees employee)
         {
 
-            var department = departmentManager.GetDepartmentById(employee.Id);
+            var department = departmentManager.GetDepartmentById(employee.DepartmentId);
               
             if (ModelState.IsValid)
             {
@@ -77,12 +77,11 @@ namespace HRManagement.Controllers
                     data.Name = employee.Name;
                     data.Surname = employee.Name;
                     data.DepartmentId = employee.DepartmentId;
-
+                    employeeManager.Update(employee);
                 }
                 //New Employee
-                else
-                    employeeManager.Update(employee);
-                employeeManager.Save();
+                else   
+                employeeManager.Save(employee);
 
                 //If i do not convert to list it throws an exception.
                 var model = employeeManager.Include("Department");  //db.Employees.Include("Department").ToList();
@@ -102,11 +101,11 @@ namespace HRManagement.Controllers
         }
 
         [Authorize(Roles = "A,T")]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
 
-            if (id > 0)
+            if (id > 0)5
             {
                 employeeManager.Delete(id);
             }

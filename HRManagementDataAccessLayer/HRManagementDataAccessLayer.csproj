@@ -55,6 +55,7 @@
     <Compile Include="EntityFramework\DatabaseContext.cs" />
     <Compile Include="EntityFramework\Repository.cs" />
     <Compile Include="EntityFramework\RepositoryBase.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Migrations\201912140014481_createDatabase.cs" />
     <Compile Include="Migrations\201912140014481_createDatabase.Designer.cs">
       <DependentUpon>201912140014481_createDatabase.cs</DependentUpon>
@@ -77,6 +78,7 @@
       <DependentUpon>201912140014481_createDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

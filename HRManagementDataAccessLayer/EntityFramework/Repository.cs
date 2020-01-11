@@ -38,13 +38,10 @@ namespace HRManagementDataAccessLayer
         {
             return _objectSet.Include(path).FirstOrDefault(where);
         }
-        public T Find( Expression<Func<T, bool>> where, params string[] tableNames)
+        public T Find(Expression<Func<T, bool>> where, params string[] tableNames)
         {
-            foreach (var table in tableNames)
-            {
-                _objectSet.Include(table);
-            }
-            return _objectSet.FirstOrDefault(where);
+         
+            return _objectSet.Include(tableNames[0]).Include(tableNames[1]).FirstOrDefault(where);
         }
         public T Find(int id)
         {

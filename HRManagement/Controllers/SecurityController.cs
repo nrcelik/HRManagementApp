@@ -11,9 +11,7 @@ namespace HRManagement.Controllers
     {
         UserManager userManager = new UserManager();
         public ActionResult Login()
-        {
-
-           
+        {      
             if (Session["User"] != null)
             {
                 Users user = new Users();
@@ -36,7 +34,7 @@ namespace HRManagement.Controllers
 
             if (ModelState.IsValid)
             {
-                Users userInfo = userManager.GetUser(user.UserName);
+                Users userInfo = userManager.GetUser(user.UserName.ToUpper());
 
                 if (userInfo == null)
                 {

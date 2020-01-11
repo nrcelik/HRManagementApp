@@ -103,7 +103,7 @@ namespace HRManagement.Controllers
         }
 
         [Authorize(Roles = "A,T")]
-        [ValidateAntiForgeryToken]
+      //  [ValidateAntiForgeryToken]
         public ActionResult Update(int id)
         {
 
@@ -125,7 +125,7 @@ namespace HRManagement.Controllers
         }
 
         [Authorize(Roles = "A,T")]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Save(EmployeeDetailsViewModel employeeDetails)
         {
             //if not do ModelState is false
@@ -157,7 +157,7 @@ namespace HRManagement.Controllers
                 else
                 {
                     employeeDetails.EmployeeDetail.Employees = employeeManager.Find(employeeId);    //db.Employees.Find(employeeId); 08/01/2020
-                    employeeDetailsManager.Save();//db.EmployeeDetails.Add(employeeDetails.EmployeeDetail); 08/01/2020
+                    employeeDetailsManager.Save(employeeDetails.EmployeeDetail);//db.EmployeeDetails.Add(employeeDetails.EmployeeDetail); 08/01/2020
                 }
 
                 //  db.SaveChanges(); 08/01/2020
@@ -179,7 +179,7 @@ namespace HRManagement.Controllers
         }
 
         [Authorize(Roles = "A,T")]
-        [ValidateAntiForgeryToken]
+      //  [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             if (id > 0)

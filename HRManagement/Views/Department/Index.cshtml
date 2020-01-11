@@ -7,6 +7,7 @@
 
 @using (Html.BeginForm("Index", "Department", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     <div class="container">
         <div class="row">
             @Html.ActionLink("New Department", "New", null, new { @class = "btn btn-success" })
@@ -21,21 +22,21 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody> 
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="h6">
-                                    @item.Name
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Update", "Update", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
-                                </td>
-                            </tr>
-                        }
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="h6">
+                                @item.Name
+                            </td>
+                            <td>
+                                @Html.ActionLink("Update", "Update", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                            </td>
+                        </tr>
+                    }
 
                 </tbody>
             </table>

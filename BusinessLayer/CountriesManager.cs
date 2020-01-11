@@ -1,4 +1,5 @@
 ﻿using HRManagementDataAccessLayer;
+using HRManagementEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace BusinessLayer
 {
    public class CountriesManager
     {
-        Repository<CountriesManager> repo = new Repository<CountriesManager>();
-        public List<CountriesManager> Get()
+        Repository<Countries> repo = new Repository<Countries>();
+        public List<Countries> Get()
         {
             return repo.List();
         }

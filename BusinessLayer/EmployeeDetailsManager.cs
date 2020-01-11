@@ -39,9 +39,9 @@ namespace BusinessLayer
         {
             return repo.Update(employeeDetails);
         }
-        public void Save()
+        public void Save(EmployeeDetails employeeDetails)
         {
-            repo.Save();
+            repo.Save(employeeDetails);
         }
         public void Delete(EmployeeDetails employeeDetails)
         {
