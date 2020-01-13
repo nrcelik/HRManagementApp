@@ -63,7 +63,7 @@ namespace HRManagement.Controllers
 
         [Authorize(Roles = "A,T")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Save(Departments department)
         {
             if (ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace HRManagement.Controllers
         }
 
         [Authorize(Roles = "A,T")]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             if (id > 0)

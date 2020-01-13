@@ -24,9 +24,9 @@ namespace BusinessLayer
         {
             repo.Update(user);
         }
-        public void Save()
+        public void Save(Users user)
         {
-            repo.Save();
+            repo.Save(user);
         }
         public void Delete(int id)
         {

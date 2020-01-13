@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace HRManagementDataAccessLayer
 {
-    public class Repository<T> : RepositoryBase, IRepository<T>  where T:class
+    public class Repository<T> : RepositoryBase, IRepository<T> where T : class
     {
         private DatabaseContext db;
         private DbSet<T> _objectSet;
@@ -22,7 +22,7 @@ namespace HRManagementDataAccessLayer
         {
             return _objectSet.ToList();
         }
-        public List<T> List(Expression<Func<T,bool>> where)
+        public List<T> List(Expression<Func<T, bool>> where)
         {
             return _objectSet.Where(where).ToList();
         }
@@ -40,8 +40,9 @@ namespace HRManagementDataAccessLayer
         }
         public T Find(Expression<Func<T, bool>> where, params string[] tableNames)
         {
-         
-            return _objectSet.Include(tableNames[0]).Include(tableNames[1]).FirstOrDefault(where);
+           
+            return _objectSet.Include("City").Include("Country").FirstOrDefault(where);
+            //  return _objectSet.Include(tableNames[0]).Include(tableNames[1]).FirstOrDefault(where);
         }
         public T Find(int id)
         {
@@ -65,10 +66,10 @@ namespace HRManagementDataAccessLayer
         {
             return Save();
         }
-        public int Delete (T obj)
+        public int Delete(T obj)
         {
             _objectSet.Remove(obj);
             return Save();
-        }   
+        }
     }
 }

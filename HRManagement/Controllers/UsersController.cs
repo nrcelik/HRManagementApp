@@ -46,7 +46,7 @@ namespace HRManagement.Controllers
                         userManager.Update(data);
                     }
                     else
-                        userManager.Save();
+                        userManager.Save(user);
                 }
                 else
                 {

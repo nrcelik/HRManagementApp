@@ -105,7 +105,7 @@ namespace HRManagement.Controllers
         public ActionResult Delete(int id)
         {
 
-            if (id > 0)5
+            if (id > 0)
             {
                 employeeManager.Delete(id);
             }
