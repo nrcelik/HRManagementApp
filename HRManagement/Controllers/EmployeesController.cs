@@ -75,7 +75,7 @@ namespace HRManagement.Controllers
                 {
                     var data = employeeManager.GetById(employee.Id); //db.Employees.Single(x => x.Id == employee.Id);
                     data.Name = employee.Name;
-                    data.Surname = employee.Name;
+                    data.Surname = employee.Surname;
                     data.DepartmentId = employee.DepartmentId;
                     employeeManager.Update(employee);
                 }

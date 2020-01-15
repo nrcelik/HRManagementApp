@@ -31,7 +31,7 @@ namespace HRManagementDataAccessLayer
             return _objectSet.Include(path).ToList();
         }
         public T Find(Expression<Func<T, bool>> where)
-        {
+        {  
             return _objectSet.FirstOrDefault(where);
         }
         public T Find(string path, Expression<Func<T, bool>> where)
@@ -39,10 +39,9 @@ namespace HRManagementDataAccessLayer
             return _objectSet.Include(path).FirstOrDefault(where);
         }
         public T Find(Expression<Func<T, bool>> where, params string[] tableNames)
-        {
+        {     
            
-            return _objectSet.Include("City").Include("Country").FirstOrDefault(where);
-            //  return _objectSet.Include(tableNames[0]).Include(tableNames[1]).FirstOrDefault(where);
+           return _objectSet.Include(tableNames[0]).Include(tableNames[1]).FirstOrDefault(where);
         }
         public T Find(int id)
         {

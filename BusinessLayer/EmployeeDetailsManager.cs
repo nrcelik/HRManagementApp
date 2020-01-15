@@ -33,7 +33,7 @@ namespace BusinessLayer
         }
         public EmployeeDetails FindAndInclude(int id,  params string[] tableNames)
         {
-            return repo.Find(x => x.Id == id, tableNames);
+            return repo.Find(x => x.Employees.Id == id, tableNames);
         }
         public int Update(EmployeeDetails employeeDetails)
         {
