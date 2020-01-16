@@ -19,7 +19,7 @@ namespace HRManagement.Controllers
             Employees employee = employeeManager.FindAndInclude(id, "Department");
             //EmployeeDetails data = db.EmployeeDetails.FirstOrDefault(x => x.Employees.Id == id); 21/11/2019
 
-            EmployeeDetails data = employeeDetailsManager.FindAndInclude(id, "City", "Country");
+            EmployeeDetails data = employeeDetailsManager.FindAndIncludeByEmployeeId(id, "City", "Country");
                 //db.EmployeeDetails.Include("City").Include("Country").FirstOrDefault(x => x.Employees.Id == id); 08/01/2020
 
             if (employee != null)
@@ -107,16 +107,17 @@ namespace HRManagement.Controllers
         public ActionResult Update(int id)
         {
 
-            EmployeeDetails employeeDetails = employeeDetailsManager.FindAndInclude(id, "City", "Country", "Employees");
+            EmployeeDetails employeeDetails = employeeDetailsManager.FindAndInclude(id, "City", "Country");
                // db.EmployeeDetails.Include("City").Include("Country").Include("Employees").FirstOrDefault(x => x.Id == id);// 08/01/2020
             int employeeId = employeeDetails.Employees.Id;
-            var employee = employeeManager.FindAndInclude(id, "Department");
+
+          //  var employee = employeeManager.FindAndInclude(id, "Department");
             //db.Employees.Include("Department").FirstOrDefault(x => x.Id == employeeId);// 08/01/2020
 
             EmployeeDetailsViewModel data = new EmployeeDetailsViewModel()
             {
                 EmployeeDetail = employeeDetails,
-                Employee = employee,
+                Employee = employeeDetails.Employees,
                 Cities = new SelectList(citiesManager.Get(), "Id", "Name", employeeDetails.CityId),
                 Countries = new SelectList(CountriesManager.Get(), "Id", "Name", employeeDetails.CountryId)
             };
@@ -162,7 +163,7 @@ namespace HRManagement.Controllers
 
                 //  db.SaveChanges(); 08/01/2020
 
-                EmployeeDetails employeeDetail = employeeDetailsManager.FindAndInclude(employeeId, "City", "Country"); //db.EmployeeDetails.Include("City").Include("Country").FirstOrDefault(x => x.Employees.Id == employeeId);
+                EmployeeDetails employeeDetail = employeeDetailsManager.FindAndIncludeByEmployeeId(employeeId, "City", "Country"); //db.EmployeeDetails.Include("City").Include("Country").FirstOrDefault(x => x.Employees.Id == employeeId);
 
                 if (HttpContext.Session["Name"] != null)
                 {
