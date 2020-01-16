@@ -1,7 +1,6 @@
-﻿using HRManagement.Models;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace HRManagement.ViewModels
+namespace HRManagementEntities.ValueObjects
 {
     public class NewEmployeeViewModel
     {

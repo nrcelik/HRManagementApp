@@ -203,26 +203,11 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WebApi\EmployeesController.cs" />
     <Compile Include="Filters\AuthFilter.cs" />
+    <Compile Include="Filters\TokenFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912140014481_createDatabase.cs" />
-    <Compile Include="Migrations\201912140014481_createDatabase.designer.cs">
-      <DependentUpon>201912140014481_createDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Cities.cs" />
-    <Compile Include="Models\Countries.cs" />
-    <Compile Include="Models\Departments.cs" />
-    <Compile Include="Models\HrManagementContext.cs" />
-    <Compile Include="Models\Employees.cs" />
-    <Compile Include="Models\EmployeeDetails.cs" />
-    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\UserRoleProvider.cs" />
-    <Compile Include="ViewModels\EmployeeDetailsViewModel.cs" />
-    <Compile Include="ViewModels\GetEmployeeViewModel.cs" />
-    <Compile Include="ViewModels\NewEmployeeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -273,9 +258,14 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912140014481_createDatabase.resx">
-      <DependentUpon>201912140014481_createDatabase.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\BusinessLayer\HRManagementBusinessLayer.csproj">
+      <Project>{ca4957f4-5010-4e05-9453-811966253203}</Project>
+      <Name>HRManagementBusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HRManagementEntities\HRManagementEntities.csproj">
+      <Project>{6e024349-024f-4a4b-8a0f-1a10767525fd}</Project>
+      <Name>HRManagementEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

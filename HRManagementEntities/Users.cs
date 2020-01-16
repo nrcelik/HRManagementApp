@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace HRManagement.Models
+namespace HRManagementEntities
 {
     public class Users
     {
@@ -16,7 +12,6 @@ namespace HRManagement.Models
         [Required]
         public string Password { get; set; }
 
-        [Required]
         public string Role { get; set; }
 
         public bool RememberMe { get; set; }

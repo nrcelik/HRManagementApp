@@ -1,4 +1,5 @@
-﻿using HRManagement.Models;
+﻿using BusinessLayer;
+using HRManagementEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,14 @@ namespace HRManagement.Controllers.WebApi
 {
     public class EmployeesController : ApiController
     {
-        HrManagementContext db = new HrManagementContext();
-
-        public IEnumerable<Employees> Get()
+        EmployeeManager employeeManager = new EmployeeManager();
+        public IEnumerable<Employees> Get() 
         {
-            return db.Employees.Include("Department").ToList();
-
+            return employeeManager.Include("Department");  //db.Employees.Include("Department").ToList(); 08/01/2020
         }
         public HttpResponseMessage Get(int id)
         {
-            Employees employee = db.Employees.Include("Department").FirstOrDefault(x => x.Id == id);
+            Employees employee = employeeManager.FindAndInclude(id, "Department"); //db.Employees.Include("Department").FirstOrDefault(x => x.Id == id);
 
             if (employee == null)
             {
@@ -32,8 +31,9 @@ namespace HRManagement.Controllers.WebApi
         {
             try
             {
-                db.Employees.Add(employee);
-                if (db.SaveChanges() > 0)
+               int result= employeeManager.Save(employee);
+
+                if (result > 0)
                 {
                     HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.Created, employee);
                     message.Headers.Location = new Uri(Request.RequestUri + "/" + employee.Id);
@@ -54,7 +54,7 @@ namespace HRManagement.Controllers.WebApi
         {
             try
             {
-                var data = db.Employees.FirstOrDefault(e => e.Id == employee.Id);
+                var data = employeeManager.GetById(employee.Id); //db.Employees.FirstOrDefault(e => e.Id == employee.Id);
 
                 if (data == null)
                 {
@@ -66,7 +66,8 @@ namespace HRManagement.Controllers.WebApi
                     data.Surname = employee.Surname;
                     data.DepartmentId = employee.DepartmentId;
                 }
-                if (db.SaveChanges() > 0)
+                
+                if (employeeManager.Save() > 0)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, employee);
 
@@ -87,16 +88,16 @@ namespace HRManagement.Controllers.WebApi
         {
             try
             {
-                Employees employee = db.Employees.FirstOrDefault(e => e.Id == id);
+                Employees employee = employeeManager.GetById(id); //db.Employees.FirstOrDefault(e => e.Id == id);
                 if (employee == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Employee could not found");
                 }
                 else
                 {
-                    db.Employees.Remove(employee);
+                    employeeManager.Delete(id);//db.Employees.Remove(employee);
 
-                    if (db.SaveChanges() > 0)
+                    if (employeeManager.Save() > 0)
                     {
                         return Request.CreateResponse(HttpStatusCode.OK, "Employee Id :" + employee.Id);
 

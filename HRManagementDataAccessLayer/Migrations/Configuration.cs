@@ -1,11 +1,8 @@
-﻿namespace HRManagement.Migrations
+﻿namespace HRManagementDataAccessLayer
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<HRManagement.Models.HrManagementContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DatabaseContext>   //HRManagement.Models.HrManagementContext>
     {
         public Configuration()
         {
@@ -13,7 +10,7 @@
            AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(HRManagement.Models.HrManagementContext context)
+        protected override void Seed(DatabaseContext context)
         {
             //  This method will be called after migrating to the latest version.
 

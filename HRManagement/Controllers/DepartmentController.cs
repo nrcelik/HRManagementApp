@@ -1,5 +1,7 @@
-﻿using HRManagement.Filters;
-using HRManagement.Models;
+﻿using BusinessLayer;
+using HRManagement.Filters;
+using HRManagementEntities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -8,21 +10,10 @@ namespace HRManagement.Controllers
 {
     public class DepartmentController : Controller
     {
-        private HrManagementContext db;
-
-        public DepartmentController()
-        {
-            db = new HrManagementContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-        }
-
+        DepartmentManager departmentManager = new DepartmentManager();
         public ActionResult Index()
         {
-            var model = db.Departments.ToList();
+            List<Departments> model = departmentManager.Get();
 
             if (model != null)
             {
@@ -55,39 +46,40 @@ namespace HRManagement.Controllers
 
         [Authorize(Roles = "A,T")]
         [HttpPost]
-        
+
         public ActionResult New(Departments department)
         {
             ViewBag.Message = "Update Department";
             return View(department);
         }
+
+        //gets the data to be updated
         [Authorize(Roles = "A,T")]
         public ActionResult Update(int id)
         {
-            var data = db.Departments.First(x => x.Id == id);
+            var data = departmentManager.GetDepartmentById(id);
             return View(data);
         }
 
         [Authorize(Roles = "A,T")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Save(Departments department)
         {
             if (ModelState.IsValid)
             {
                 if (department.Id > 0)
                 {
-                    var data = db.Departments.SingleOrDefault(x => x.Id == department.Id);
+                    var data = departmentManager.GetDepartmentById(department.Id);
                     data.Name = department.Name;
-                    db.SaveChanges();
+                    departmentManager.Update(data);
                 }
                 else
-                    db.Departments.Add(department);
-                db.SaveChanges();
+                    //db.Departments.Add(department);
+                    departmentManager.Save(department);
 
-                var model = db.Departments.ToList();
-
-                return View("Index", model);
+                var model = departmentManager.Get();
+                return View("Index", model);           
             }
             else
             {
@@ -96,22 +88,21 @@ namespace HRManagement.Controllers
             }
 
         }
+
         [Authorize(Roles = "A,T")]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var data = db.Departments.SingleOrDefault(x => x.Id == id);
-            if (data != null)
+            if (id > 0)
             {
-                db.Departments.Remove(data);
-                db.SaveChanges();
+                departmentManager.Delete(id);
+                return RedirectToAction("Index");
             }
             else
                 return HttpNotFound();
-            var model = db.Departments.ToList();
 
-            return View("Index", model);
-
+            //var model = db.Departments.ToList();
+            //return View("Index", model);
         }
     }
 

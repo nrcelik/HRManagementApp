@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HRManagementEntities;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
-namespace HRManagement.Models
+namespace HRManagementDataAccessLayer
 {
-    public class HrManagementContext : DbContext
+    public class DatabaseContext : DbContext
     {
         public DbSet<Employees> Employees { get; set; }
         public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
@@ -15,12 +12,11 @@ namespace HRManagement.Models
         public DbSet<Countries> Countries { get; set; }
         public DbSet<Users> Users { get; set; }
 
-        public HrManagementContext() : base("HrManagementConStr")
+        public DatabaseContext() : base("HrManagementConStr")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<HrManagementContext, HRManagement.Migrations.Configuration>());
+           // Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, HRManagement.Migrations.Configuration>());
 
             this.Configuration.LazyLoadingEnabled = false;
         }
-
     }
 }
