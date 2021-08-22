@@ -1,1 +1,2 @@
-# MVCProjects Base of HRManagement Project
+
+This is an HR Management application based on ASP.Net MVC.
